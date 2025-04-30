@@ -1,46 +1,120 @@
-# Getting Started with Create React App
+# ExperimentFlow リポジトリ利用ガイド（GitHub + ブランチ運用）
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+このドキュメントでは、当プロジェクトにおける環境構築・Git/GitHubの使い方・ブランチの切り方・共同作業の進め方について記載します。
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔧 環境構築手順（npm・Node.js）
 
-### `npm start`
+### 1. Node.jsとnpmのインストール
+- 公式サイトからインストール：[https://nodejs.org/ja/](https://nodejs.org/ja/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 2. インストール確認
+- PowerShell で：
+  ```bash
+  node -v
+  ```
+- コマンドプロンプトで：
+  ```bash
+  npm -v
+  ```
+※それぞれバージョンが表示されればインストール完了です。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## 💻 プロジェクトのクローンと初期設定
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. 任意の保存先ディレクトリへ移動
+```bash
+cd 自分の保存したいディレクトリ
+```
 
-### `npm run build`
+### 2. GitHubからクローン
+```bash
+git clone https://github.com/YukiMiyazaki13120/ExperimentFlow.git
+cd ExperimentFlow
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🌿 ブランチの使い方と作業の流れ
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. 最新のリモート情報を取得
+```bash
+git fetch
+```
 
-### `npm run eject`
+### 2. ベースブランチ（例：feature/experiment）に切り替え
+```bash
+git checkout feature/experiment
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 3. ベースブランチを最新に更新
+```bash
+git pull origin feature/experiment
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 4. 作業用のブランチを作成
+```bash
+git checkout -b feature/experiment/add-step-ui
+```
+※「add-step-ui」は目的に応じて名前を変えてください。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 5. 作業後に変更をGitHubへ反映
+```bash
+git add .
+git commit -m "ステップUIを追加"
+git push origin feature/experiment/add-step-ui
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## 🔁 Pull Request（PR）フロー
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. GitHubにアクセス
+2. `feature/experiment/add-step-ui` ブランチに対応した Pull Request を作成
+   - **base**：`feature/experiment`
+   - **compare**：`feature/experiment/add-step-ui`
+3. 他の作業者が内容を確認し、問題なければマージ
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+
+## 🚀 アプリの起動コマンド（初回）
+
+```bash
+cd ExperimentFlow
+npm install  # 初回のみ必要
+npm start    # アプリ起動（http://localhost:3000）
+```
+
+### VS Codeで開く
+```bash
+code .
+```
+
+---
+
+## 📌 ブランチ命名規則（推奨）
+
+| 種別 | 命名例 | 用途 |
+|------|--------|------|
+| 機能追加 | `feature/experiment/add-〇〇` | 新機能・画面の追加 |
+| 不具合修正 | `bugfix/experiment/fix-〇〇` | バグ修正系の作業 |
+| ドキュメント | `docs/update-readme` | READMEやWikiの更新 |
+
+---
+
+## 📩 よくあるGitコマンドまとめ
+
+| コマンド | 説明 |
+|----------|------|
+| `git status` | 変更状況の確認 |
+| `git branch` | 現在のブランチ確認 |
+| `git fetch` | リモート更新の取得（マージなし） |
+| `git pull` | リモート更新の取得＆反映 |
+| `git push origin <ブランチ名>` | ブランチの変更をGitHubへ反映 |
+
+---
+
+何か分からないことがあれば、チーム内で気軽に相談してください！
+
