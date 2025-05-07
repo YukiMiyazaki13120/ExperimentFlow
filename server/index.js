@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
+ //もし本番環境に移したいのであれば、httpだと80にする
 const port = 3001;
 
 app.use(cors());
@@ -10,7 +11,7 @@ app.use(express.json());
 
 // DB接続
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'localhost', //もし本番環境に移したいのであれば、AWS RDSなどのリンクを貼る
   user: 'root',         // ← MySQLのユーザー名
   password: '', // ← パスワード
   database: 'tactile_db'

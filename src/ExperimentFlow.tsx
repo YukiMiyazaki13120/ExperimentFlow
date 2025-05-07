@@ -69,6 +69,8 @@ const ExperimentFlow: React.FC = () => {
     };    
   
     try {
+      //もし本番環境に移したいのであれば、AWSのEC2サーバーのIPアドレスを用いてhttp://<グローバルIP>:80/api/submitとする
+      //またこの触感情報は機密なのでLet's Encryptを用いてHTTPS通信にするのがおすすめ（その場合はDNSとかとってやって見ると良いかも）
       const res = await fetch('http://localhost:3001/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
