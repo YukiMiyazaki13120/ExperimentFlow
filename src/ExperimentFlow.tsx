@@ -89,7 +89,7 @@ const ExperimentFlow: React.FC = () => {
       setTrialIndex(prev => prev + 1);
       setSubStep(0);
     } else {
-      setStep(6);
+      setStep(7);
     }
   };
   
@@ -186,7 +186,7 @@ const ExperimentFlow: React.FC = () => {
                   <input className="form-input" value={materialType} onChange={e => setMaterialType(e.target.value)} />
                 </label>
               </div>
-              <button className="large-button">実験開始</button>
+              <button className="large-button" onClick={nextStep}>実験開始</button>
             </div>
           );        
         

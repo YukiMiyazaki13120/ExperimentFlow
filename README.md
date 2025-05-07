@@ -1,120 +1,137 @@
-# ExperimentFlow リポジトリ利用ガイド（GitHub + ブランチ運用）
+# ExperimentFlow 環境構築・運用ガイド（後輩向け）
 
-このドキュメントでは、当プロジェクトにおける環境構築・Git/GitHubの使い方・ブランチの切り方・共同作業の進め方について記載します。
-
----
-
-## 🔧 環境構築手順（npm・Node.js）
-
-### 1. Node.jsとnpmのインストール
-- 公式サイトからインストール：[https://nodejs.org/ja/](https://nodejs.org/ja/)
-
-### 2. インストール確認
-- PowerShell で：
-  ```bash
-  node -v
-  ```
-- コマンドプロンプトで：
-  ```bash
-  npm -v
-  ```
-※それぞれバージョンが表示されればインストール完了です。
+このドキュメントは、React + Node.js + MySQL を用いた「ExperimentFlow」プロジェクトの実行・開発環境の構築方法を解説します。
 
 ---
 
-## 💻 プロジェクトのクローンと初期設定
+## ✅ 前提条件
 
-### 1. 任意の保存先ディレクトリへ移動
-```bash
-cd 自分の保存したいディレクトリ
-```
+* Windows 10 / 11 または macOS（M1 / M2 もOK）
+* インターネット環境
 
-### 2. GitHubからクローン
+---
+
+## 1. GitHubからクローン
+
 ```bash
+cd 任意の保存先ディレクトリ
 git clone https://github.com/YukiMiyazaki13120/ExperimentFlow.git
 cd ExperimentFlow
 ```
 
 ---
 
-## 🌿 ブランチの使い方と作業の流れ
+## 2. Node.jsとnpmの導入
 
-### 1. 最新のリモート情報を取得
+### インストール
+
+* [公式サイト](https://nodejs.org/ja/)からダウンロードしてインストール
+
+### 確認方法
+
+#### Windows:
+
+* PowerShell または コマンドプロンプト（どちらでも可）で以下を実行：
+
+```bash
+node -v
+npm -v
+```
+
+※バージョンが表示されればOK
+
+---
+
+## 3. MySQLの導入（ローカル）
+
+### Windows:
+
+* [MySQL公式ページ](https://dev.mysql.com/downloads/mysql/)から「MySQL Community Server」をインストール
+
+### 起動・ログイン
+
+```bash
+mysql -u root
+```
+
+※初期設定でパスワードが未設定ならそのまま Enter でOK
+
+### データベース作成
+
+```sql
+CREATE DATABASE tactile_db;
+USE tactile_db;
+CREATE TABLE tactile_results (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+  username VARCHAR(255),
+  gender VARCHAR(255),
+  age INT,
+  pertex_number INT,
+  material_type VARCHAR(255),
+  item VARCHAR(255),
+  value INT
+);
+```
+
+---
+
+## 4. Node.jsサーバーの構築（バックエンド）
+
+```bash
+cd server
+npm init -y
+npm install express mysql2 cors
+```
+
+### 起動
+
+```bash
+node index.js
+```
+
+---
+
+## 5. Reactアプリの起動（フロントエンド）
+
+```bash
+cd ../
+npm install  # 初回のみ
+npm start    # http://localhost:3000 が開く
+```
+
+---
+
+## 6. 実験結果の確認
+
+```bash
+mysql -u root
+USE tactile_db;
+SELECT * FROM tactile_results;
+```
+
+---
+
+## 🔁 ブランチ運用・Git操作（共同開発向け）
+
 ```bash
 git fetch
-```
-
-### 2. ベースブランチ（例：feature/experiment）に切り替え
-```bash
 git checkout feature/experiment
+# 作業用ブランチ作成例
+git checkout -b feature/experiment/add-ui
 ```
 
-### 3. ベースブランチを最新に更新
-```bash
-git pull origin feature/experiment
-```
+変更反映：
 
-### 4. 作業用のブランチを作成
-```bash
-git checkout -b feature/experiment/add-step-ui
-```
-※「add-step-ui」は目的に応じて名前を変えてください。
-
-### 5. 作業後に変更をGitHubへ反映
 ```bash
 git add .
-git commit -m "ステップUIを追加"
-git push origin feature/experiment/add-step-ui
+git commit -m "UI追加"
+git push origin feature/experiment/add-ui
 ```
 
 ---
 
-## 🔁 Pull Request（PR）フロー
-
-1. GitHubにアクセス
-2. `feature/experiment/add-step-ui` ブランチに対応した Pull Request を作成
-   - **base**：`feature/experiment`
-   - **compare**：`feature/experiment/add-step-ui`
-3. 他の作業者が内容を確認し、問題なければマージ
+## 補足
+* サーバが起動していないと React からPOSTしてもエラーになるので注意
 
 ---
-
-## 🚀 アプリの起動コマンド（初回）
-
-```bash
-cd ExperimentFlow
-npm install  # 初回のみ必要
-npm start    # アプリ起動（http://localhost:3000）
-```
-
-### VS Codeで開く
-```bash
-code .
-```
-
----
-
-## 📌 ブランチ命名規則（推奨）
-
-| 種別 | 命名例 | 用途 |
-|------|--------|------|
-| 機能追加 | `feature/experiment/add-〇〇` | 新機能・画面の追加 |
-| 不具合修正 | `bugfix/experiment/fix-〇〇` | バグ修正系の作業 |
-| ドキュメント | `docs/update-readme` | READMEやWikiの更新 |
-
----
-
-## 📩 よくあるGitコマンドまとめ
-
-| コマンド | 説明 |
-|----------|------|
-| `git status` | 変更状況の確認 |
-| `git branch` | 現在のブランチ確認 |
-| `git fetch` | リモート更新の取得（マージなし） |
-| `git pull` | リモート更新の取得＆反映 |
-| `git push origin <ブランチ名>` | ブランチの変更をGitHubへ反映 |
-
----
-
-何か分からないことがあれば、チーム内で気軽に相談してください！
-
