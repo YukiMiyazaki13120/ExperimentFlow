@@ -1,4 +1,4 @@
-# ExperimentFlow 環境構築・運用ガイド（後輩向け）
+# ExperimentFlow 環境構築・運用ガイド
 
 このドキュメントは、React + Node.js + MySQL を用いた「ExperimentFlow」プロジェクトの実行・開発環境の構築方法を解説します。
 
