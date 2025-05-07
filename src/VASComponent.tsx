@@ -1,5 +1,6 @@
 // VASComponent.tsx
 import React, { useState } from 'react';
+import './VASComponent.css';
 
 interface VASProps {
   label: string;
@@ -16,15 +17,15 @@ const VASComponent: React.FC<VASProps> = ({ label, onChange }) => {
   };
 
   return (
-    <div style={{ margin: '1rem 0' }}>
-      <label>{label}</label>
+    <div className="vas-container">
+      <label className="vas-label">{label}</label>
       <input
+        className="vas-slider"
         type="range"
         min={0}
         max={100}
         value={value}
         onChange={handleInput}
-        style={{ width: '100%' }}
       />
       <div>{value}</div>
     </div>

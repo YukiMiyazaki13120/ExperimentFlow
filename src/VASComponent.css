@@ -1,0 +1,10 @@
+.vas-container {
+  margin: 1rem 0;
+}
+.vas-slider {
+  width: 80%;
+  height: 32px;
+}
+.vas-label {
+  font-weight: bold;
+}
