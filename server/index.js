@@ -13,7 +13,7 @@ app.use(express.json());
 const connection = mysql.createConnection({
   host: 'localhost', //もし本番環境に移したいのであれば、AWS RDSなどのリンクを貼る
   user: 'root',         // ← MySQLのユーザー名
-  password: '', // ← パスワード
+  password: 'bsys', // ← パスワード
   database: 'tactile_db'
 });
 

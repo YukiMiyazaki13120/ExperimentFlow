@@ -21,7 +21,7 @@ cd ExperimentFlow
 
 ---
 
-## 2. Node.jsとnpmの導入
+## 2. Node.jsとnpmとGitの導入
 
 ### インストール
 
@@ -40,18 +40,28 @@ npm -v
 
 ※バージョンが表示されればOK
 
+#### Gitのインストール:
+* [公式サイト](https://git-scm.com/downloads/win)からダウンロードしてインストール
+* Git for Windows/x64 Setup.をインストール後、デフォルトのまま登録
+
 ---
 
 ## 3. MySQLの導入（ローカル）
 
 ### Windows:
 
-* [MySQL公式ページ](https://dev.mysql.com/downloads/mysql/)から「MySQL Community Server」をインストール
+* [MySQL公式ページ](https://dev.mysql.com/downloads/installer/)から「353.7Mの方」をインストール
+
+その後、パスワードは各自設定
+そして以下にPATHを通す
+```bash
+C:\Program Files\MySQL\MySQL Server 8.0\bin
+```
 
 ### 起動・ログイン
 
 ```bash
-mysql -u root
+mysql -u root -p # パスワードは各自設定したものを入力
 ```
 
 ※初期設定でパスワードが未設定ならそのまま Enter でOK
@@ -105,7 +115,7 @@ npm start    # http://localhost:3000 が開く
 ## 6. 実験結果の確認
 
 ```bash
-mysql -u root
+mysql -u root -p # パスワードは各自設定したものを入力
 USE tactile_db;
 SELECT * FROM tactile_results;
 ```
